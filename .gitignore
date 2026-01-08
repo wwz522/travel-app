@@ -1,0 +1,38 @@
+# 后端
+tripmate-backend/target/
+tripmate-backend/.mvn/
+tripmate-backend/uploads/
+*.jar
+*.war
+*.class
+
+# 前端
+trip-mate-travel-app/node_modules/
+trip-mate-travel-app/dist/
+trip-mate-travel-app/.env.local
+trip-mate-travel-app/.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+*~
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 日志
+*.log
+logs/
+
+# 环境变量（包含敏感信息）
+.env
+.env.local
+
+# 临时文件
+*.tmp
+*.temp
+

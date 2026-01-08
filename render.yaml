@@ -1,0 +1,49 @@
+# Render 部署配置文件
+# 文档：https://render.com/docs/yaml-spec
+
+services:
+  # 后端 Spring Boot 服务
+  - type: web
+    name: tripmate-backend
+    env: java
+    buildCommand: cd tripmate-backend && ./mvnw clean package -DskipTests
+    startCommand: cd tripmate-backend && java -jar target/tripmate-backend-1.0.0.jar --spring.profiles.active=render
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: render
+      - key: DATABASE_URL
+        fromDatabase:
+          name: tripmate-db
+          property: connectionString
+      - key: DB_USERNAME
+        fromDatabase:
+          name: tripmate-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: tripmate-db
+          property: password
+      - key: JWT_SECRET
+        generateValue: true
+      - key: QIANWEN_API_KEY
+        sync: false  # 需要在 Render Dashboard 手动设置
+    healthCheckPath: /api/health
+
+  # 前端静态网站
+  - type: web
+    name: tripmate-frontend
+    env: static
+    buildCommand: cd trip-mate-travel-app && npm install && npm run build
+    staticPublishPath: trip-mate-travel-app/dist
+    envVars:
+      - key: VUE_APP_API_BASE_URL
+        value: https://tripmate-backend.onrender.com/api
+
+databases:
+  # MySQL 数据库（注意：Render 免费版只支持 PostgreSQL）
+  # 如果使用 PostgreSQL，需要修改数据库配置
+  - name: tripmate-db
+    databaseName: tripmate
+    user: tripmate_user
+    plan: free  # 或 starter（付费）
+

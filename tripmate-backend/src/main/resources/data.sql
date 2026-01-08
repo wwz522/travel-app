@@ -1,0 +1,166 @@
+USE tripmate;
+
+-- 清空现有数据（按依赖关系顺序删除）
+DELETE FROM likes;
+DELETE FROM favorites;
+DELETE FROM comments;
+DELETE FROM attractions;
+DELETE FROM routes;
+DELETE FROM users;
+
+-- 插入用户数据
+INSERT INTO users (username, email, password, avatar) VALUES
+('旅行达人小王', 'xiaowang@example.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVKIUi', 'https://api.dicebear.com/7.x/avataaars/svg?seed=xiaowang'),
+('探索者张三', 'zhangsan@example.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVKIUi', 'https://api.dicebear.com/7.x/avataaars/svg?seed=zhangsan'),
+('江南旅人', 'jiangnan@example.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVKIUi', 'https://api.dicebear.com/7.x/avataaars/svg?seed=jiangnan'),
+('摄影爱好者', 'photographer@example.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVKIUi', 'https://api.dicebear.com/7.x/avataaars/svg?seed=photo'),
+('美食猎人', 'foodie@example.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVKIUi', 'https://api.dicebear.com/7.x/avataaars/svg?seed=foodie'),
+('背包客小李', 'backpacker@example.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVKIUi', 'https://api.dicebear.com/7.x/avataaars/svg?seed=backpacker'),
+('古镇漫游者', 'ancient@example.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVKIUi', 'https://api.dicebear.com/7.x/avataaars/svg?seed=ancient'),
+('山野探险家', 'mountain@example.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVKIUi', 'https://api.dicebear.com/7.x/avataaars/svg?seed=mountain'),
+('海边度假者', 'beach@example.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVKIUi', 'https://api.dicebear.com/7.x/avataaars/svg?seed=beach'),
+('城市探索者', 'city@example.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVKIUi', 'https://api.dicebear.com/7.x/avataaars/svg?seed=city');
+
+-- 插入路线数据
+INSERT INTO routes (user_id, title, cover, description, duration, budget, tags, likes_count, favorites_count, comments_count) VALUES
+(1, '杭州西湖一日游精品线路', 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=800&h=600&fit=crop', '带你玩转西湖最美景点，包含断桥、雷峰塔、三潭印月等经典景点。早上从断桥残雪开始，漫步白堤，欣赏苏堤春晓，中午品尝西湖醋鱼，下午游览雷峰塔，晚上欣赏三潭印月。', 1, '200-500元', '杭州,西湖,一日游', 328, 156, 45),
+(3, '苏州园林两日深度游', 'https://images.unsplash.com/photo-1548604543-9b99e6a9a4c0?w=800&h=600&fit=crop', '探访拙政园、留园、虎丘等经典园林，感受江南水乡韵味。第一天游览拙政园和留园，第二天游览虎丘和寒山寺。', 2, '500-1000元', '苏州,园林,两日游', 412, 234, 67),
+(5, '成都美食三日游', 'https://images.unsplash.com/photo-1563245372-f21724e3856d?w=800&h=600&fit=crop', '深度体验成都美食文化，品尝正宗川菜、火锅、小吃。第一天春熙路美食街，第二天宽窄巷子，第三天锦里古街。', 3, '800-1500元', '成都,美食,三日游', 567, 345, 89),
+(7, '丽江古城休闲四日游', 'https://images.unsplash.com/photo-1548604543-9b99e6a9a4c1?w=800&h=600&fit=crop', '漫步丽江古城，感受纳西族文化。第一天古城漫步，第二天玉龙雪山，第三天束河古镇，第四天泸沽湖。', 4, '1500-2500元', '丽江,古城,四日游', 789, 456, 123),
+(2, '西安历史文化五日游', 'https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=800&h=600&fit=crop', '探索千年古都，感受大唐风华。第一天兵马俑，第二天华清池，第二天大雁塔，第四天城墙骑行，第五天回民街美食。', 5, '2000-3500元', '西安,历史,五日游', 678, 389, 98),
+(4, '厦门海滨浪漫三日游', 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&h=600&fit=crop', '感受海滨城市的浪漫与悠闲。第一天鼓浪屿，第二天环岛路骑行，第三天曾厝垵文艺村。', 3, '1000-2000元', '厦门,海滨,三日游', 534, 267, 76),
+(6, '桂林山水甲天下三日游', 'https://images.unsplash.com/photo-1548013146-72479768bada?w=800&h=600&fit=crop', '漓江竹筏漂流，阳朔西街漫步，遇龙河骑行。第一天漓江游船，第二天阳朔西街，第三天遇龙河。', 3, '800-1500元', '桂林,山水,三日游', 445, 234, 65),
+(8, '张家界奇山异水四日游', 'https://images.unsplash.com/photo-1520698426888-9c4a6b0c0a0c?w=800&h=600&fit=crop', '探索阿凡达取景地，感受大自然的鬼斧神工。第一天天门山，第二天张家界国家森林公园，第三天袁家界，第四天黄龙洞。', 4, '1500-2500元', '张家界,山水,四日游', 623, 312, 87),
+(9, '三亚热带海滨五日游', 'https://images.unsplash.com/photo-1545569341-9eb8b30979d8?w=800&h=600&fit=crop', '享受阳光沙滩，体验热带风情。第一天亚龙湾，第二天蜈支洲岛，第三天南山寺，第四天涯海角，第五天免税店购物。', 5, '2500-4000元', '三亚,海滨,五日游', 890, 567, 134),
+(10, '北京古都文化六日游', 'https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=800&h=600&fit=crop', '深度游览北京历史文化景点。第一天故宫，第二天天坛，第三天颐和园，第四天长城，第五天胡同游，第六天798艺术区。', 6, '3000-5000元', '北京,文化,六日游', 756, 423, 112);
+
+-- 插入景点数据
+INSERT INTO attractions (user_id, title, cover, description, location, rating, tags, likes_count, favorites_count, comments_count) VALUES
+(2, '灵隐寺', 'https://images.unsplash.com/photo-1548013146-72479768bada?w=800&h=600&fit=crop', '中国佛教著名寺院，始建于东晋咸和元年（326年），至今已有约1700年的历史。寺内古木参天，香火鼎盛，是杭州著名的佛教圣地。', '杭州市西湖区灵隐路法云弄1号', 4.8, '寺庙,历史,文化', 256, 89, 32),
+(1, '西湖十景之断桥残雪', 'https://images.unsplash.com/photo-1520698426888-9c4a6b0c0a0c?w=800&h=600&fit=crop', '断桥位于白堤东端，是西湖十景之一。传说白娘子与许仙在此相会，因此得名。冬天下雪时，桥面若隐若现，如断似连，景色绝佳。', '杭州市西湖区白堤东端', 4.6, '西湖,景点,文化', 189, 76, 28),
+(3, '拙政园', 'https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=800&h=600&fit=crop', '中国四大名园之一，始建于明代正德年间，是江南古典园林的代表作品。园内山水相依，亭台楼阁错落有致，是游览苏州的必去之地。', '苏州市姑苏区东北街178号', 4.9, '苏州,园林,历史', 345, 178, 56),
+(5, '宽窄巷子', 'https://images.unsplash.com/photo-1563245372-f21724e3856d?w=800&h=600&fit=crop', '成都历史文化街区，由宽巷子、窄巷子、井巷子三条平行排列的老式街道组成。这里保存了清朝古街道，是体验成都慢生活的好去处。', '成都市青羊区长顺上街', 4.7, '成都,历史,文化', 423, 234, 67),
+(7, '玉龙雪山', 'https://images.unsplash.com/photo-1548604543-9b99e6a9a4c1?w=800&h=600&fit=crop', '北半球最近赤道的终年积雪山脉，主峰扇子陡海拔5596米。雪山气势磅礴，景色壮丽，是丽江旅游的必去景点。', '丽江市玉龙纳西族自治县', 4.8, '丽江,雪山,自然', 567, 345, 89),
+(2, '兵马俑', 'https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=800&h=600&fit=crop', '世界第八大奇迹，秦始皇陵的陪葬坑。成千上万的兵马俑排列整齐，神态各异，展现了秦朝军队的威武雄壮。', '西安市临潼区秦陵北路', 4.9, '西安,历史,文化', 789, 456, 123),
+(4, '鼓浪屿', 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&h=600&fit=crop', '厦门著名的风景名胜区，素有"海上花园"之称。岛上建筑风格多样，有万国建筑博览之称，是文艺青年的打卡圣地。', '厦门市思明区鼓浪屿', 4.7, '厦门,岛屿,文化', 634, 312, 87),
+(6, '漓江', 'https://images.unsplash.com/photo-1548013146-72479768bada?w=800&h=600&fit=crop', '桂林山水的精华所在，从桂林到阳朔的83公里水程，两岸山峰奇特，江水清澈见底，构成了一幅绝美的山水画卷。', '广西桂林市', 4.8, '桂林,山水,自然', 512, 267, 73),
+(8, '天门山', 'https://images.unsplash.com/photo-1520698426888-9c4a6b0c0a0c?w=800&h=600&fit=crop', '张家界永定区最高的山，主峰海拔1518米。天门洞是世界最高海拔的天然穿山溶洞，玻璃栈道更是惊险刺激。', '张家界市永定区天门山', 4.6, '张家界,山峰,自然', 445, 223, 61),
+(9, '亚龙湾', 'https://images.unsplash.com/photo-1545569341-9eb8b30979d8?w=800&h=600&fit=crop', '三亚最美的海湾，被誉为"天下第一湾"。沙滩洁白细腻，海水清澈见底，是度假休闲的理想之地。', '三亚市吉阳区亚龙湾', 4.9, '三亚,海滩,度假', 678, 389, 98),
+(10, '故宫', 'https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=800&h=600&fit=crop', '中国明清两代的皇家宫殿，旧称紫禁城。是世界上现存规模最大、保存最完整的木质结构古建筑群。', '北京市东城区景山前街4号', 4.9, '北京,宫殿,历史', 923, 567, 145),
+(1, '雷峰塔', 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=800&h=600&fit=crop', '杭州西湖十景之一，因《白蛇传》而闻名。塔高71.6米，登上塔顶可以俯瞰西湖全景。', '杭州市西湖区南山路15号', 4.5, '杭州,塔,文化', 234, 123, 45),
+(3, '留园', 'https://images.unsplash.com/photo-1548604543-9b99e6a9a4c0?w=800&h=600&fit=crop', '中国四大名园之一，以建筑艺术精湛著称。园内建筑布局精巧，空间层次丰富，是苏州园林的代表作。', '苏州市姑苏区阊门外留园路338号', 4.7, '苏州,园林,历史', 289, 156, 52),
+(5, '锦里', 'https://images.unsplash.com/photo-1563245372-f21724e3856d?w=800&h=600&fit=crop', '成都著名的古街，传说中是西蜀历史上最古老、最具有商业气息的街道之一。这里汇聚了成都的各种小吃和手工艺品。', '成都市武侯区武侯祠大街231号', 4.6, '成都,古街,美食', 378, 201, 63),
+(7, '泸沽湖', 'https://images.unsplash.com/photo-1548604543-9b99e6a9a4c1?w=800&h=600&fit=crop', '中国第三大深水湖，位于云南和四川交界处。湖水清澈见底，四周群山环绕，是摩梭人的聚居地，有"女儿国"之称。', '云南省丽江市宁蒗县', 4.8, '丽江,湖泊,自然', 456, 234, 71);
+
+-- 插入评论数据
+INSERT INTO comments (user_id, target_type, target_id, content) VALUES
+(2, 'route', 1, '这条路线规划得很好，时间安排合理，推荐！'),
+(3, 'route', 1, '西湖确实很美，特别是断桥残雪，一定要去看看。'),
+(4, 'route', 2, '苏州园林太精致了，拙政园和留园都值得细细品味。'),
+(5, 'route', 3, '成都美食太多了，三天根本吃不完！'),
+(6, 'route', 4, '丽江古城很有味道，晚上酒吧街很热闹。'),
+(7, 'route', 5, '兵马俑太震撼了，不愧是世界第八大奇迹。'),
+(8, 'route', 6, '鼓浪屿很文艺，适合拍照打卡。'),
+(9, 'route', 7, '漓江竹筏漂流很刺激，风景也很美。'),
+(10, 'route', 8, '张家界玻璃栈道太吓人了，但是很值得！'),
+(1, 'route', 9, '三亚的海滩太美了，下次还要去。'),
+(2, 'route', 10, '故宫太大了，一天根本逛不完。'),
+(3, 'attraction', 1, '灵隐寺很灵验，香火很旺。'),
+(4, 'attraction', 2, '断桥的传说很浪漫，一定要去看看。'),
+(5, 'attraction', 3, '拙政园的园林设计太精妙了，每个角落都很美。'),
+(6, 'attraction', 4, '宽窄巷子的火锅很好吃，推荐！'),
+(7, 'attraction', 5, '玉龙雪山太壮观了，一定要去看。'),
+(8, 'attraction', 6, '兵马俑的规模太大了，让人震撼。'),
+(9, 'attraction', 7, '鼓浪屿的建筑很有特色，适合拍照。'),
+(10, 'attraction', 8, '漓江的山水如画，美不胜收。'),
+(1, 'attraction', 9, '天门山的玻璃栈道太刺激了，腿都软了。'),
+(2, 'attraction', 10, '亚龙湾的海滩太美了，水很清。'),
+(3, 'attraction', 11, '雷峰塔的传说很感人，登塔看西湖全景很棒。'),
+(4, 'attraction', 12, '留园的建筑布局很精巧，值得细细品味。'),
+(5, 'attraction', 13, '锦里的小吃太多了，三天都吃不完。'),
+(6, 'attraction', 14, '泸沽湖的水太清澈了，像镜子一样。'),
+(7, 'attraction', 15, '摩梭人的文化很独特，值得了解。');
+
+-- 插入收藏数据
+INSERT INTO favorites (user_id, target_type, target_id) VALUES
+(2, 'route', 1),
+(3, 'route', 1),
+(4, 'route', 2),
+(5, 'route', 3),
+(6, 'route', 4),
+(7, 'route', 5),
+(8, 'route', 6),
+(9, 'route', 7),
+(10, 'route', 8),
+(1, 'route', 9),
+(2, 'route', 10),
+(3, 'attraction', 1),
+(4, 'attraction', 2),
+(5, 'attraction', 3),
+(6, 'attraction', 4),
+(7, 'attraction', 5),
+(8, 'attraction', 6),
+(9, 'attraction', 7),
+(10, 'attraction', 8),
+(1, 'attraction', 9),
+(2, 'attraction', 10),
+(3, 'attraction', 11),
+(4, 'attraction', 12),
+(5, 'attraction', 13),
+(6, 'attraction', 14),
+(7, 'attraction', 15),
+(8, 'route', 1),
+(9, 'route', 2),
+(10, 'route', 3),
+(1, 'route', 4),
+(2, 'route', 5),
+(3, 'attraction', 2),
+(4, 'attraction', 3),
+(5, 'attraction', 4),
+(6, 'attraction', 5),
+(7, 'attraction', 6),
+(8, 'attraction', 7),
+(9, 'attraction', 8);
+
+-- 插入点赞数据
+    INSERT INTO likes (user_id, target_type, target_id) VALUES
+    (2, 'route', 1),
+    (3, 'route', 1),
+    (4, 'route', 2),
+    (5, 'route', 3),
+    (6, 'route', 4),
+    (7, 'route', 5),
+    (8, 'route', 6),
+    (9, 'route', 7),
+    (10, 'route', 8),
+    (1, 'route', 9),
+    (2, 'route', 10),
+    (3, 'attraction', 1),
+    (4, 'attraction', 2),
+    (5, 'attraction', 3),
+    (6, 'attraction', 4),
+    (7, 'attraction', 5),
+    (8, 'attraction', 6),
+    (9, 'attraction', 7),
+    (10, 'attraction', 8),
+    (1, 'attraction', 9),
+    (2, 'attraction', 10),
+    (3, 'attraction', 11),
+    (4, 'attraction', 12),
+    (5, 'attraction', 13),
+    (6, 'attraction', 14),
+    (7, 'attraction', 15),
+    (8, 'route', 1),
+    (9, 'route', 2),
+    (10, 'route', 3),
+    (1, 'route', 4),
+    (2, 'route', 5),
+    (3, 'attraction', 2),
+    (4, 'attraction', 3),
+    (5, 'attraction', 4),
+    (6, 'attraction', 5),
+    (7, 'attraction', 6),
+    (8, 'attraction', 7),
+    (9, 'attraction', 8),
+    (10, 'attraction', 9),
+    (1, 'attraction', 10);

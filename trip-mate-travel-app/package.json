@@ -1,0 +1,41 @@
+{
+  "name": "tripmate-travel-app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "serve": "vue-cli-service serve"
+  },
+  "dependencies": {
+    "axios": "1.6.0",
+    "class-variance-authority": "0.7.1",
+    "clsx": "2.1.1",
+    "element-ui": "2.15.14",
+    "js-cookie": "3.0.5",
+    "lucide-react": "0.562.0",
+    "next": "16.1.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "tailwind-merge": "3.4.0",
+    "tailwindcss-animate": "1.0.7",
+    "vue": "2.6.14",
+    "vue-router": "3.5.3",
+    "vuex": "3.6.2"
+  },
+  "devDependencies": {
+    "@types/node": "25.0.3",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "@vue/cli-plugin-babel": "5.0.8",
+    "@vue/cli-plugin-router": "5.0.8",
+    "@vue/cli-plugin-vuex": "5.0.8",
+    "@vue/cli-service": "5.0.8",
+    "postcss": "8.5.6",
+    "sass": "1.69.5",
+    "sass-loader": "13.3.2",
+    "tailwindcss": "4.1.18",
+    "typescript": "5.9.3",
+    "vue-template-compiler": "2.6.14"
+  }
+}

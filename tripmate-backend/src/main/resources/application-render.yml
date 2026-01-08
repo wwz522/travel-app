@@ -1,0 +1,48 @@
+# Render 部署环境配置
+spring:
+  application:
+    name: tripmate-backend
+  
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # Render 使用环境变量
+    url: ${DATABASE_URL:jdbc:mysql://localhost:3306/tripmate?useSSL=false&serverTimezone=UTC}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
+  
+  sql:
+    init:
+      mode: never
+  
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+      enabled: true
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.tripmate.entity
+
+server:
+  port: ${PORT:8080}  # Render 会自动设置 PORT 环境变量
+  servlet:
+    context-path: /api
+
+jwt:
+  secret: ${JWT_SECRET:tripmate-secret-key-2024-very-long-secret-key-for-jwt-token-generation}
+  expiration: 604800000
+
+file:
+  upload:
+    path: ${UPLOAD_PATH:./uploads/}
+    url-prefix: ${UPLOAD_URL_PREFIX:/uploads/}
+
+ai:
+  qianwen:
+    api-key: ${QIANWEN_API_KEY:sk-132ad81a355943549e0d0a3da0652f3e}
+    api-url: https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation
+
