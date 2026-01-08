@@ -4,9 +4,15 @@ spring:
   
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/tripmate?useSSL=false&serverTimezone=Asia/Shanghai
-    username: root
-    password: Ggr68729!
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/tripmate?useSSL=false&serverTimezone=Asia/Shanghai}
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:Ggr68729!}
+    hikari:
+      connection-timeout: 30000  # 连接超时30秒
+      maximum-pool-size: 10      # 最大连接数
+      minimum-idle: 5            # 最小空闲连接数
+      idle-timeout: 600000       # 空闲连接超时10分钟
+      max-lifetime: 1800000      # 连接最大生命周期30分钟
   
   sql:
     init:
@@ -31,8 +37,8 @@ server:
     context-path: /api
 
 jwt:
-  secret: tripmate-secret-key-2024-very-long-secret-key-for-jwt-token-generation
-  expiration: 604800000
+  secret: ${JWT_SECRET:tripmate-secret-key-2024-very-long-secret-key-for-jwt-token-generation}
+  expiration: ${JWT_EXPIRATION:604800000}
 
 file:
   upload:
@@ -41,5 +47,5 @@ file:
 
 ai:
   qianwen:
-    api-key: sk-132ad81a355943549e0d0a3da0652f3e
-    api-url: https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation
+    api-key: ${AI_QIANWEN_API_KEY:sk-132ad81a355943549e0d0a3da0652f3e}
+    api-url: ${AI_QIANWEN_API_URL:https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation}
